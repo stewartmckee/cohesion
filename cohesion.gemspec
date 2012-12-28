@@ -13,11 +13,13 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Gem to test the cohesion of links within a rails site.}
   gem.homepage      = "http://github.com/stewartmckee/cohesion"
 
+  gem.executables   << "cohesion"
+
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  #gem.add_dependency "cobweb"
+  gem.add_dependency "cobweb"
   
 end

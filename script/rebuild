@@ -1,0 +1,4 @@
+gem uninstall cohesion -x
+rm cohesion-0.0.1.gem
+gem build cohesion.gemspec
+gem install cohesion-0.0.1.gem
