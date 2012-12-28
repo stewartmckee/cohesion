@@ -15,8 +15,14 @@ or you can just install without bundler with
 
 bc. gem install cohesion
 
-
 h2. Usage
+
+h3. Executable
+
+Running from the command line has the following syntax
+
+bc. cohesion check http://your-site-to-check.com/
+
 
 h3. Checking an external site
 

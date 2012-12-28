@@ -8,13 +8,29 @@ require 'cohesion'
 args = ARGV.dup
 ARGV.clear
 
-failures = Cohesion::Check.site(args[0])
+case args[0]
+when "check"
+  if args[1].nil? 
+    puts
+    puts "Error, URL is not specified.  You must specify the url you wish to check"
+    puts
+  else
+    failures = Cohesion::Check.site(args[1])
 
-if failures.count == 0
-  exit(true)
+    if failures.count == 0
+      exit(true)
+    else
+      exit(false)
+    end
+  end
 else
-  exit(false)
+  puts "Usage: cohesion command options"
+  puts 
+  puts " check"
+  puts "   cohesion check http://your-site-to-check.com/"
+  puts 
+  puts " help"
+  puts "  Produces this information"
+  puts
 end
-
-
 
