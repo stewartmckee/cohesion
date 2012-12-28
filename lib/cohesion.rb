@@ -1,5 +1,8 @@
 require "cohesion/version"
 
+Dir["tasks/**/*.rake"].each { |ext| load ext } if defined?(Rake)
+
 module Cohesion
-  # Your code goes here...
+  class Check
+  end
 end
