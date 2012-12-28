@@ -39,4 +39,4 @@ h2. Contribute
 
 If you want to contribute, you can fork the github repository and submit pull requests, or you can donate me some development fuel... ie coffee/beer use this link 
 
-"DONATE!":https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=VDJK49HD3DNAS&lc=GB&item_name=stewartmckee&item_number=stewartmckee_donation"&no_note=1&no_shipping=1&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
+"DONATE!":https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=VDJK49HD3DNAS&lc=GB&item_name=stewartmckee&item_number=stewartmckee_donation&no_note=1&no_shipping=1&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
