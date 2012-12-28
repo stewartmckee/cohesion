@@ -24,4 +24,19 @@ You can check an external site with the rake task below.  This will crawl the si
 
 bc. rake cohesion:check["http://your-site-to-check.com"]
 
+h3. Checking your local development environment
 
+Currently you can check your local development environment the same way as you do an external, but point to your local server:
+
+bc. rake cohesion:check["http://localhost:3000/"]
+
+
+h2. Future
+
+I intend to add the ability to check the rails app without starting the server though, which would allow you to add it to your specs.
+
+h2. Contribute
+
+If you want to contribute, you can fork the github repository and submit pull requests, or you can donate me some development fuel... ie coffee/beer use this link 
+
+"DONATE!":https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=VDJK49HD3DNAS&lc=GB&item_name=stewartmckee&item_number=stewartmckee_donation"&no_note=1&no_shipping=1&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
