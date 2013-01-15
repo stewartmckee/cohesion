@@ -10,4 +10,12 @@ namespace :cohesion do
     end
     puts
   end
+
+  desc 'test rails app for broken links'
+  task :rails => :environment do
+    
+    Cohesion::Check.rails_text
+
+
+  end
 end

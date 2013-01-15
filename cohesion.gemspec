@@ -21,5 +21,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency "cobweb"
+  gem.add_dependency "ptools"
   
 end
