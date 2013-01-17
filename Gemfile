@@ -8,3 +8,4 @@ gem "cobweb", :path => "/Users/stewartmckee/code/cobweb"
 gem 'rspec'
 gem 'awesome_print'
 gem 'sqlite3'
+gem 'ptools'

@@ -4,7 +4,6 @@ ENVIRONMENT = "test"
 APP_ROOT = File.expand_path(File.dirname(__FILE__) + '/../')
 
 require "#{APP_ROOT}/lib/cohesion"
-require 'ap'
 
 RSpec.configure do |config|
   
