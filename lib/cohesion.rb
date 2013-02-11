@@ -8,6 +8,7 @@ module Cohesion
   class Check
 
     def self.rails_text
+      puts "WARNING - not working yet..."
       root_path = Rails.root.to_s
       Dir.glob("**/*").each do |filename|
         unless File.directory?(filename) || File.binary?(filename) || filename.ends_with?(".rdb")
@@ -33,6 +34,7 @@ module Cohesion
     end
 
     def self.rails_object
+      puts "WARNING - not working yet..."
       root_path = Rails.root.to_s
       #app_name = Rails.application.name
       #puts "Checking #{app_name}..."
@@ -63,10 +65,11 @@ module Cohesion
       end
     end
 
-    def self.site(url)
+    def self.site(url, options={})
+      puts "alsjflsadjg"
       errors = []
       failures = []
-      CobwebCrawler.new(:cache => 600, :cache_type => :full, :crawl_linked_external => true).crawl(url) do |page|
+      statistics = CobwebCrawler.new({:cache => 3600, :cache_type => :full, :crawl_linked_external => true, :store_refered_url => true}.merge(options)).crawl(url) do |page|
         print page[:url]
         if page[:status_code] > 399
           puts " [#{page[:status_code]}] \e[31m\u2717\e[0m"
@@ -80,7 +83,10 @@ module Cohesion
         puts "All links working!"
       else
         puts "Failed urls:"
-        failures.map{|f| puts "  -  #{f[:url]} [ #{f[:status_code]} ]"}
+        failures.each do |f|
+          puts "  -  #{f[:url]} [ #{f[:status_code]} ]"
+          puts statistics.inbound_links_for(f[:url])
+        end
       end
       puts
 

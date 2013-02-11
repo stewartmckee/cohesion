@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'rake'
 
 describe Cohesion do
   before(:each) do
@@ -9,10 +8,17 @@ describe Cohesion do
   it "should be a Check class" do
     @cohesion.should be_an_instance_of Cohesion::Check
   end
+  it "should run a check"
 
-  it "should run a check" do
+  context "site" do
+    it "should crawl the site"
+    it "should return error pages"
+  end
 
-    Rake::Task['check'].invoke
+  context "rails" do
+  end
+
+  context "rake" do
   end
 
 end
