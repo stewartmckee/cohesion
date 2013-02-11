@@ -10,12 +10,12 @@ GEM
   specs:
     addressable (2.3.2)
     awesome_print (1.1.0)
-    cobweb (1.0.2)
+    cobweb (1.0.6)
       addressable
       awesome_print
       haml
       json
-      namespaced_redis (>= 1.0.2)
+      namespaced_redis
       nokogiri
       redis
       resque
@@ -69,7 +69,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  cobweb
+  cobweb (>= 1.0.6)
   cohesion!
   ptools
   rspec
