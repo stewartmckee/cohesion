@@ -66,7 +66,6 @@ module Cohesion
     end
 
     def self.site(url, options={})
-      puts "alsjflsadjg"
       errors = []
       failures = []
       statistics = CobwebCrawler.new({:cache => 3600, :cache_type => :full, :crawl_linked_external => true, :store_refered_url => true}.merge(options)).crawl(url) do |page|
@@ -84,9 +83,13 @@ module Cohesion
       else
         puts "Failed urls:"
         failures.each do |f|
-          puts "  -  #{f[:url]} [ #{f[:status_code]} ]"
-          puts statistics.inbound_links_for(f[:url])
+          puts ""
+          puts "#{f[:url]} [ #{f[:status_code]} ]"
+          statistics.inbound_links_for(f[:url]).each do |inbound_link|
+            puts "  - #{inbound_link}"
+          end
         end
+        puts ""
       end
       puts
 

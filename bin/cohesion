@@ -4,33 +4,29 @@ lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
 $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 
 require 'cohesion'
+require 'slop'
 
-args = ARGV.dup
-ARGV.clear
+opts = Slop.parse(:help => true) do
+  banner 'Usage: cohesion check [options]'
 
-case args[0]
-when "check"
-  if args[1].nil? 
-    puts
-    puts "Error, URL is not specified.  You must specify the url you wish to check"
-    puts
-  else
-    failures = Cohesion::Check.site(args[1])
-
-    if failures.count == 0
-      exit(true)
-    else
-      exit(false)
-    end
-  end
-else
-  puts "Usage: cohesion command options"
-  puts 
-  puts " check"
-  puts "   cohesion check http://your-site-to-check.com/"
-  puts 
-  puts " help"
-  puts "  Produces this information"
-  puts
+  on 'u', 'url', 'URL to start crawl from'
+  on 'i', 'internal_urls', 'Url patterns to include', :as => Array
+  on 'e', 'external_urls', 'Url patterns to exclude', :as => Array
+  on 's', 'seed_urls', "Seed urls", :as => Array
+  on 'v', 'verbose', 'Display crawl information'
+  on 'd', 'debug', 'Display debug information'
+  on 'l', 'crawl_limit', 'Limit the crawl to a number of urls'
+  on 't', 'thread_count', "Set the number of threads used"
 end
 
+if opts[:url]
+  failures = Cohesion::Check.site(opts[:url], opts)
+
+  if failures.count == 0
+    exit(true)
+  else
+    exit(false)
+  end
+else
+  puts
+end
