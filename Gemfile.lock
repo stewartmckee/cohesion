@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cohesion (0.0.4)
+    cohesion (0.0.5)
       cobweb
       ptools
 
@@ -10,7 +10,7 @@ GEM
   specs:
     addressable (2.3.2)
     awesome_print (1.1.0)
-    cobweb (1.0.8)
+    cobweb (1.0.10)
       addressable
       awesome_print
       haml
@@ -25,9 +25,10 @@ GEM
     daemons (1.1.9)
     diff-lcs (1.1.3)
     eventmachine (1.0.0)
-    haml (3.1.7)
+    haml (4.0.0)
+      tilt
     json (1.7.7)
-    multi_json (1.5.1)
+    multi_json (1.6.0)
     namespaced_redis (1.0.4)
       redis
     nokogiri (1.5.6)
@@ -70,7 +71,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  cobweb (>= 1.0.8)
+  cobweb (>= 1.0.10)
   cohesion!
   ptools
   rspec

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in cohesion.gemspec
 gemspec
 
-gem "cobweb", ">= 1.0.8"
+gem "cobweb", ">= 1.0.10"
 
 gem 'rspec'
 gem 'awesome_print'
