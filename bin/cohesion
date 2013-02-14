@@ -7,24 +7,37 @@ require 'cohesion'
 require 'slop'
 
 opts = Slop.parse(:help => true) do
-  banner 'Usage: cohesion check [options]'
+  banner 'Usage: cohesion [options]'
 
-  on 'u', 'url', 'URL to start crawl from'
-  on 'i', 'internal_urls', 'Url patterns to include', :as => Array
-  on 'e', 'external_urls', 'Url patterns to exclude', :as => Array
-  on 's', 'seed_urls', "Seed urls", :as => Array
+  on 'url=', 'URL to start crawl from'
+  on 'internal_urls=', 'Url patterns to include', :as => Array
+  on 'external_urls=', 'Url patterns to exclude', :as => Array
+  on 'seed_urls=', "Seed urls", :as => Array
+  on 'crawl_limit=', 'Limit the crawl to a number of urls', :as => Integer
+  on 'thread_count=', "Set the number of threads used", :as => Integer
+  on 'timeout=', "Sets the timeout for http requests", :as => Integer
+
+  on 'output=', 'Path to output data to'
+
   on 'v', 'verbose', 'Display crawl information'
   on 'd', 'debug', 'Display debug information'
-  on 'l', 'crawl_limit', 'Limit the crawl to a number of urls'
-  on 't', 'thread_count', "Set the number of threads used"
+  on 'w', 'web_statistics', 'Start web stats server'
 end
 
 if opts[:url]
-  failures = Cohesion::Check.site(opts[:url], opts)
 
+  options = opts.to_hash.delete_if { |k, v| v.nil? || k == :url}
+  ap options
+
+  failures = Cohesion::Check.site(opts[:url], options)
   if failures.count == 0
     exit(true)
   else
+    if opts[:output]
+      File.open(opts[:output], 'w') do |f|
+        f.write failures.to_json
+      end
+    end
     exit(false)
   end
 else

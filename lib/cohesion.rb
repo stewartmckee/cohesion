@@ -78,14 +78,17 @@ module Cohesion
         end
       end
 
+      issues = []
       if failures.count == 0
         puts "All links working!"
       else
         puts "Failed urls:"
         failures.each do |f|
+          inbound_links = statistics.inbound_links_for(f[:url])
+          issues << {:issue => f, :inbound => inbound_links}
           puts ""
           puts "#{f[:url]} [ #{f[:status_code]} ]"
-          statistics.inbound_links_for(f[:url]).each do |inbound_link|
+          inbound_links.each do |inbound_link|
             puts "  - #{inbound_link}"
           end
         end
@@ -93,7 +96,7 @@ module Cohesion
       end
       puts
 
-      failures
+      return issues
     end
   end
 end

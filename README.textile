@@ -21,7 +21,36 @@ h3. Executable
 
 Running from the command line has the following syntax
 
-bc. cohesion check http://your-site-to-check.com/
+bc. cohesion --url http://your-site-to-check.com/
+
+
+h4. Options
+
+Cohesion allows you to control the crawl through various command line options.  These are available through help (see below) and are listed here.
+
+
+  * --url <start_url>                               Url to start crawl from
+  * --internal_urls <url1,url2>                     List of url patterns to include
+  * --external_urls <exclude_url1, exclude_url2>    List of url patterns to exclude
+  * --seed_urls <seed_url1,seed_url2>               Seed urls
+  * --crawl_limit <number_of_urls>                  Limit the crawl to a number of urls
+  * --thread_count <number_of_threads>              Set the number of threads used
+  * --timeout <timeout_in_seconds>                  Sets the timeout for http requests
+  * --output <filename>                             Path to output data to
+
+  * -v, --verbose                                   Display crawl information
+  * -d, --debug                                     Display debug information
+  * -w, --web_statistics                            Start web stats server
+
+
+
+h4. Help
+
+Help with available options is available with --help
+
+bc. cohesion --help
+
+
 
 
 h3. Checking an external site
