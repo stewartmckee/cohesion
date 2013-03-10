@@ -1,6 +1,9 @@
 
 h1. Cohesion
 
+!https://coveralls.io/repos/stewartmckee/cohesion/badge.png?branch=master(Coverage Status)!:https://coveralls.io/r/stewartmckee/cohesion
+
+
 h2. Intro
 
 Cohesion is a group of tasks that allow you to check link cohesion in a site.
