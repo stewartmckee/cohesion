@@ -6,6 +6,9 @@ APP_ROOT = File.expand_path(File.dirname(__FILE__) + '/../')
 require "#{APP_ROOT}/lib/cohesion"
 require 'rake'
 
+require 'coveralls'
+Coveralls.wear!
+
 RSpec.configure do |config|
   
   

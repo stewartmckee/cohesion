@@ -10,3 +10,7 @@ gem 'awesome_print'
 gem 'sqlite3'
 gem 'ptools'
 gem "slop"
+
+group :test do
+  gem 'coveralls', require: false
+end
