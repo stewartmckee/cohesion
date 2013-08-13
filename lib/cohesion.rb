@@ -1,5 +1,5 @@
 require "cohesion/version"
-require 'cobweb'
+require '../cobweb/lib/cobweb'
 require 'ptools'
 
 require 'cohesion/railtie' if defined?(Rails)
@@ -68,7 +68,11 @@ module Cohesion
     def self.site(url, options={})
       errors = []
       failures = []
-      statistics = CobwebCrawler.new({:cache => 3600, :cache_type => :full, :crawl_linked_external => true, :store_refered_url => true}.merge(options)).crawl(url) do |page|
+
+      crawler_options = {:crawl_type => :full, :crawl_linked_external => true, :store_inbound_links => true}.merge(options)
+      puts crawler_options
+
+      statistics = CobwebCrawler.new(crawler_options).crawl(url) do |page|
         print page[:url]
         if page[:status_code] > 399
           puts " [#{page[:status_code]}] \e[31m\u2717\e[0m"
@@ -78,6 +82,12 @@ module Cohesion
         end
       end
 
+      puts statistics.redis.namespace
+      puts statistics.get_statistics
+
+      total_inbound_failures = 0
+      total_failures = 0
+
       issues = []
       if failures.count == 0
         puts "All links working!"
@@ -86,12 +96,20 @@ module Cohesion
         failures.each do |f|
           inbound_links = statistics.inbound_links_for(f[:url])
           issues << {:issue => f, :inbound => inbound_links}
+
+          total_inbound_failures += inbound_links.count
+          total_failures += 1
+
           puts ""
           puts "#{f[:url]} [ #{f[:status_code]} ]"
           inbound_links.each do |inbound_link|
             puts "  - #{inbound_link}"
           end
         end
+
+        puts ""
+        puts "Total Failed URLs: #{total_failures}"
+        puts "Total Inbound Failures (Pages linking to a 404): #{total_inbound_failures}"
         puts ""
       end
       puts
