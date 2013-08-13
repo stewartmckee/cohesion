@@ -3,10 +3,13 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in cohesion.gemspec
 gemspec
 
-gem "cobweb", ">= 1.0.10"
+gem "cobweb", :path => "/Users/stewartmckee/code/cobweb"
 
 gem 'rspec'
+gem 'resque'
 gem 'awesome_print'
 gem 'sqlite3'
 gem 'ptools'
 gem "slop"
+gem 'sidekiq'
+gem "utf8cleaner"
