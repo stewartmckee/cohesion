@@ -16,6 +16,7 @@ opts = Slop.parse(:help => true) do
   on 'crawl_limit=', 'Limit the crawl to a number of urls', :as => Integer
   on 'thread_count=', "Set the number of threads used", :as => Integer
   on 'timeout=', "Sets the timeout for http requests", :as => Integer
+  on 'cache=', "Sets the timeout for the cache, leave blank for no cache"
 
   on 'output=', 'Path to output data to'
 
@@ -27,7 +28,6 @@ end
 if opts[:url]
 
   options = opts.to_hash.delete_if { |k, v| v.nil? || k == :url}
-  ap options
 
   failures = Cohesion::Check.site(opts[:url], options)
   if failures.count == 0
@@ -35,7 +35,13 @@ if opts[:url]
   else
     if opts[:output]
       File.open(opts[:output], 'w') do |f|
-        f.write failures.to_json
+
+        output = []
+        failures.each do |failure|
+          output << {:error_page => failure[:issue][:url], :inbound_links => failure[:inbound]}
+        end
+
+        f.write output.to_json
       end
     end
     exit(false)
