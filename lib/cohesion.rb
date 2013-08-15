@@ -1,6 +1,8 @@
+require 'bundler/setup'
 require "cohesion/version"
 require 'cobweb'
 require 'ptools'
+require 'digest/md5'
 
 require 'cohesion/railtie' if defined?(Rails)
 
@@ -69,17 +71,30 @@ module Cohesion
       errors = []
       failures = []
 
+      pages = {}
+
       options[:cache] = options[:cache].to_i if options[:cache]
       crawler_options = {:cache_type => :full, :crawl_linked_external => true, :store_inbound_links => true}.merge(options)
       puts crawler_options
 
       statistics = CobwebCrawler.new(crawler_options).crawl(url) do |page|
         print page[:url]
+
+        duplicate = !pages[Digest::MD5.hexdigest(page[:body])].nil?
+        pages[Digest::MD5.hexdigest(page[:body])] = [] unless pages[Digest::MD5.hexdigest(page[:body])]
+        pages[Digest::MD5.hexdigest(page[:body])] << page[:url]
+
+        # if it was a 404 before, just check again not using the cache this time
         if page[:status_code] == 404
           page = Cobweb.new(crawler_options.merge(:cache => nil)).get(page[:url])
         end
-        if page[:status_code] > 399
-          puts " [#{page[:status_code]}] \e[31m\u2717\e[0m"
+
+        if page[:status_code] == 404 || duplicate
+          if duplicate
+            puts " [duplicate] \e[31m\u2717\e[0m"
+          else
+            puts " [#{page[:status_code]}] \e[31m\u2717\e[0m"
+          end
           failures << page
         else
           puts " \e[32m\u2713\e[0m"
@@ -111,8 +126,11 @@ module Cohesion
           end
         end
 
+        ap pages
+
         puts ""
         puts "Total Failed URLs: #{total_failures}"
+        puts "Total Duplicates: #{pages.map{|d| d[1]}.select{|d| d.count > 2}.count}"
         puts "Total Inbound Failures (Pages linking to a 404): #{total_inbound_failures}"
         puts ""
       end
