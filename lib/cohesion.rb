@@ -69,11 +69,15 @@ module Cohesion
       errors = []
       failures = []
 
-      crawler_options = {:crawl_type => :full, :crawl_linked_external => true, :store_inbound_links => true}.merge(options)
+      options[:cache] = options[:cache].to_i if options[:cache]
+      crawler_options = {:cache_type => :full, :crawl_linked_external => true, :store_inbound_links => true}.merge(options)
       puts crawler_options
 
       statistics = CobwebCrawler.new(crawler_options).crawl(url) do |page|
         print page[:url]
+        if page[:status_code] == 404
+          page = Cobweb.new(crawler_options.merge(:cache => nil)).get(page[:url])
+        end
         if page[:status_code] > 399
           puts " [#{page[:status_code]}] \e[31m\u2717\e[0m"
           failures << page
