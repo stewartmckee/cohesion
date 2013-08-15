@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cohesion (0.0.6)
+    cohesion (0.0.7)
       cobweb
       ptools
 

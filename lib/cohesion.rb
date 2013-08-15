@@ -1,5 +1,5 @@
 require "cohesion/version"
-require '../cobweb/lib/cobweb'
+require 'cobweb'
 require 'ptools'
 
 require 'cohesion/railtie' if defined?(Rails)
