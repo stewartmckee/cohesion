@@ -3,6 +3,9 @@
 ENVIRONMENT = "test"
 APP_ROOT = File.expand_path(File.dirname(__FILE__) + '/../')
 
+require 'coveralls'
+Coveralls.wear!
+
 require "#{APP_ROOT}/lib/cohesion"
 require 'rake'
 

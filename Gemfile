@@ -13,3 +13,7 @@ gem 'ptools'
 gem "slop"
 gem 'sidekiq'
 gem "utf8cleaner"
+
+group :test do
+  gem 'coveralls', require: false
+end
