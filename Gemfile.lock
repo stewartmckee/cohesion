@@ -1,14 +1,18 @@
 PATH
   remote: .
   specs:
-    cohesion (1.0.0)
+    cohesion (1.0.1)
       cobweb
       ptools
 
-PATH
-  remote: /Users/stewartmckee/code/cobweb
+GEM
+  remote: https://rubygems.org/
   specs:
-    cobweb (1.0.13)
+    addressable (2.3.5)
+    awesome_print (1.1.0)
+    celluloid (0.14.1)
+      timers (>= 1.0.0)
+    cobweb (1.0.15)
       addressable
       awesome_print
       haml
@@ -20,14 +24,6 @@ PATH
       sinatra
       slop
       thin
-
-GEM
-  remote: https://rubygems.org/
-  specs:
-    addressable (2.3.5)
-    awesome_print (1.1.0)
-    celluloid (0.14.1)
-      timers (>= 1.0.0)
     colorize (0.5.8)
     connection_pool (1.1.0)
     coveralls (0.6.7)
@@ -105,7 +101,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  cobweb!
+  cobweb (>= 1.0.15)
   cohesion!
   coveralls
   ptools
