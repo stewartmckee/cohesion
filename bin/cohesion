@@ -31,6 +31,10 @@ if opts[:url]
 
   options = opts.to_hash.delete_if { |k, v| v.nil? || k == :url}
 
+  options[:seed_urls] = File.open(options[:seed_urls][0]).read.split("\n") if options[:seed_urls] && File.exists?(options[:seed_urls][0])
+  options[:internal_urls] = File.open(options[:internal_urls][0]).read.split("\n") if options[:internal_urls] && File.exists?(options[:internal_urls][0])
+  options[:external_urls] = File.open(options[:external_urls][0]).read.split("\n") if options[:external_urls] && File.exists?(options[:external_urls][0])
+
   failures = Cohesion::Check.site(opts[:url], options)
   if failures.count == 0
     exit(true)

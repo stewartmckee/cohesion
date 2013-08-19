@@ -75,7 +75,6 @@ module Cohesion
 
       options[:cache] = options[:cache].to_i if options[:cache]
       crawler_options = {:cache_type => :full, :crawl_linked_external => true, :store_inbound_links => true}.merge(options)
-      puts crawler_options
 
       statistics = CobwebCrawler.new(crawler_options).crawl(url) do |page|
         print page[:url]
@@ -126,11 +125,18 @@ module Cohesion
           end
         end
 
-        ap pages
+        puts ""
+        puts "Duplicate Content"
+        puts ""
+        pages.select{|k,v| v.count > 1}.each do |k,v|
+          puts "Duplicate: #{k}"
+          v.map{|x| puts "  - #{x}" }
+        end
+
 
         puts ""
         puts "Total Failed URLs: #{total_failures}"
-        puts "Total Duplicates: #{pages.map{|d| d[1]}.select{|d| d.count > 2}.count}"
+        puts "Total Duplicates: #{pages.map{|d| d[1]}.select{|d| d.count > 1}.inject{|total, d| total + d.count}.count}"
         puts "Total Inbound Failures (Pages linking to a 404): #{total_inbound_failures}"
         puts ""
       end
