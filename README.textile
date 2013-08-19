@@ -34,20 +34,20 @@ h4. Options
 Cohesion allows you to control the crawl through various command line options.  These are available through help (see below) and are listed here.
 
 
-  * --url <start_url>                               Url to start crawl from
-  * --internal_urls <url1,url2>                     List of url patterns to include
-  * --external_urls <exclude_url1, exclude_url2>    List of url patterns to exclude
-  * --seed_urls <seed_url1,seed_url2>               Seed urls
-  * --crawl_limit <number_of_urls>                  Limit the crawl to a number of urls
-  * --thread_count <number_of_threads>              Set the number of threads used
-  * --cache <number_of_seconds>                     Sets the timeout for the cache, leave blank for no cache
-  * --timeout <timeout_in_seconds>                  Sets the timeout for http requests
-  * --output <filename>                             Path to output data to
-  * --output_format <format_for_output_file>        Output format, csv or json
+  * --url <start_url>                                           Url to start crawl from
+  * --internal_urls <url1,url2 or filename>                     List of url patterns to include (comma seperated list or filename with url per line)
+  * --external_urls <exclude_url1, exclude_url2 or filename>    List of url patterns to exclude (comma seperated list or filename with url per line)
+  * --seed_urls <seed_url1,seed_url2 or filename>               Seed urls (comma seperated list or filename with url per line)
+  * --crawl_limit <number_of_urls>                              Limit the crawl to a number of urls
+  * --thread_count <number_of_threads>                          Set the number of threads used
+  * --cache <number_of_seconds>                                 Sets the timeout for the cache, leave blank for no cache
+  * --timeout <timeout_in_seconds>                              Sets the timeout for http requests
+  * --output <filename>                                         Path to output data to
+  * --output_format <format_for_output_file>                    Output format, csv or json
 
-  * -v, --verbose                                   Display crawl information
-  * -d, --debug                                     Display debug information
-  * -w, --web_statistics                            Start web stats server
+  * -v, --verbose                                               Display crawl information
+  * -d, --debug                                                 Display debug information
+  * -w, --web_statistics                                        Start web stats server (http://localhost:4567)
 
 
 h4. Help
