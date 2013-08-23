@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cohesion (1.0.1)
+    cohesion (1.0.2)
       cobweb
       ptools
 
@@ -12,7 +12,7 @@ GEM
     awesome_print (1.1.0)
     celluloid (0.14.1)
       timers (>= 1.0.0)
-    cobweb (1.0.15)
+    cobweb (1.0.17)
       addressable
       awesome_print
       haml
@@ -101,7 +101,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  cobweb (>= 1.0.15)
+  cobweb (>= 1.0.17)
   cohesion!
   coveralls
   ptools
