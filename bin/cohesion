@@ -18,6 +18,9 @@ opts = Slop.parse(:help => true) do
   on 'thread_count=', "Set the number of threads used", :as => Integer
   on 'timeout=', "Sets the timeout for http requests", :as => Integer
   on 'cache=', "Sets the timeout for the cache, leave blank for no cache"
+  on 'authentication=', "Sets the authentication type used"
+  on 'username=', "Username to use with authentication"
+  on 'password=', "Password to use with authentication"
 
   on 'output=', 'Path to output data to'
   on 'output_format=', "Output format, csv or json"

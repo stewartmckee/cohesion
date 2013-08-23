@@ -44,6 +44,9 @@ Cohesion allows you to control the crawl through various command line options.  
   * --timeout <timeout_in_seconds>                              Sets the timeout for http requests
   * --output <filename>                                         Path to output data to
   * --output_format <format_for_output_file>                    Output format, csv or json
+  * --authentication <authenticaiton_mechanism>                 Authentication to use, currently only basic
+  * --username <username>                                       Username to use with authentication specified
+  * --password <password>                                       Password to use with authentication specified
 
   * -v, --verbose                                               Display crawl information
   * -d, --debug                                                 Display debug information
