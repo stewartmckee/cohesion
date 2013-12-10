@@ -22,7 +22,7 @@ bc. gem install cohesion
 
 h2. Usage
 
-h3. Executable
+h3. Command Line
 
 Running from the command line has the following syntax
 
@@ -62,18 +62,18 @@ bc. cohesion --help
 
 
 
-h3. Checking an external site
+h3. Rake
 
 You can check an external site with the rake task below.  This will crawl the site and check each link within the site, and will also check the links to external sites.  It will also check image, stylesheet and javascript references from link tags.
 
 bc. rake cohesion:check["http://your-site-to-check.com"]
 
-h3. Checking your local development environment
+h4. Checking your local development environment
 
-Currently you can check your local development environment the same way as you do an external, but point to your local server:
+Originally the intention was to add this to your specs and render the rails templates from within the app, i've not completed this yet so currently you can check your local development environment the same way as you do an external, but point to your local server:
 
 bc. rake cohesion:check["http://localhost:3000/"]
-
+k
 
 h2. Future
 
