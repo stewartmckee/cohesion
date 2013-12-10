@@ -25,40 +25,52 @@ opts = Slop.parse(:help => true) do
   on 'output=', 'Path to output data to'
   on 'output_format=', "Output format, csv or json"
 
+  on 'c', 'clearcache', "Clear the cache"
   on 'v', 'verbose', 'Display crawl information'
   on 'd', 'debug', 'Display debug information'
   on 'w', 'web_statistics', 'Start web stats server'
 end
 
+if opts[:clearcache]
+  Cohesion::Cache.clear
+end
 if opts[:url]
 
   options = opts.to_hash.delete_if { |k, v| v.nil? || k == :url}
 
+  options[:output_format] = "json" unless options.has_key? :output_format
   options[:seed_urls] = File.open(options[:seed_urls][0]).read.split("\n") if options[:seed_urls] && File.exists?(options[:seed_urls][0])
   options[:internal_urls] = File.open(options[:internal_urls][0]).read.split("\n") if options[:internal_urls] && File.exists?(options[:internal_urls][0])
   options[:external_urls] = File.open(options[:external_urls][0]).read.split("\n") if options[:external_urls] && File.exists?(options[:external_urls][0])
 
   failures = Cohesion::Check.site(opts[:url], options)
-  if failures.count == 0
+  if failures[:missing].count == 0
     exit(true)
   else
-    if opts[:output]
+    if options[:output]
       output = []
-      failures.each do |failure|
+      failures[:missing].each do |failure|
         output << {:error_page => failure[:issue][:url], :inbound_links => failure[:inbound]}
       end
 
-      opts[:output_format] = "json" unless opts[:output_format]
-      if opts[:output_format] == "json"
-        File.open(opts[:output], 'w') do |f|
+      if options[:output_format] == "json"
+        File.open(options[:output], 'w') do |f|
           f.write output.to_json
         end
-      elsif opts[:output_format] == "csv"
-        CSV.open(opts[:output], "wb") do |csv|
+      elsif options[:output_format] == "csv"
+        CSV.open("missing_#{options[:output]}", "wb") do |csv|
           csv << ["404 Url", "Page that contains link"]
           output.each do |line|
             line[:inbound_links].each do |link|
               csv << [line[:error_page], link]
+            end
+          end
+        end
+        CSV.open("duplicate_#{options[:output]}", "wb") do |csv|
+          csv << ["Hash of Content", "Pages with duplicate content"]
+          failures[:duplicate].each do |md5, pages|
+            pages.each do |link|
+              csv << [md5, link]
             end
           end
         end
@@ -67,5 +79,5 @@ if opts[:url]
     exit(false)
   end
 else
-  puts
+  puts opts
 end
